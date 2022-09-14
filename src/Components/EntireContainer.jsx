@@ -3,7 +3,7 @@ import Main from './MainDiv/Main';
 import Hero from './MainDiv/Hero';
 import Footer from './Footer';
 
-export default function MainContainer() {
+export default function EntireContainer() {
   return (
     <div className="flex flex-col w-screen h-screen border border-yellow">
       <div className="flex basis-1/3 m-1">
