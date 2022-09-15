@@ -1,5 +1,5 @@
 import React from 'react';
-import MainDiv from './MainDiv/MainDiv';
+import MainDiv from './MainDiv';
 
 export default function EntireContainer() {
   return (

@@ -1,5 +1,5 @@
-import MainSideRightBottom from './MainSideRightBottom';
-import MainSideRightTop from './MainSideRightTop';
+import MainSideRightBottom from './MainDiv/MainSideRightBottom';
+import MainSideRightTop from './MainDiv/MainSideRightTop';
 
 export default function MainRight() {
   return (

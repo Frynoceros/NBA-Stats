@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../assets/Styles/App.css';
-import EntireContainer from '../EntireContainer';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import Hero from '../MainDiv/Hero';
+import Hero from '../Hero';
+import MainDiv from '../MainDiv';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Hero />
       </div>
       <div>
-        <EntireContainer />
+        <MainDiv />
       </div>
       <div>
         <Footer />

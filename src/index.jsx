@@ -12,6 +12,9 @@ import {
 import ErrorPage from './ErrorPage';
 import Teams from './Components/Routes/Teams';
 import Roster from './Components/Routes/Roster';
+import TeamHome from './Components/Routes/TeamHome';
+
+// import Root, {loader as rootLoader} from './Components/Routes/App';
 
 const router = createBrowserRouter([
   {
@@ -22,12 +25,14 @@ const router = createBrowserRouter([
       {
         path: 'teams',
         element: <Teams />,
-        children: [
-          {
-            path: 'teams/:teamId/',
-            element: <Roster />,
-          },
-        ],
+      },
+      {
+        path: 'teams/:teamId',
+        element: <TeamHome />,
+      },
+      {
+        path: 'teams/:teamId/roster',
+        element: <Roster />,
       },
     ],
   },
@@ -36,8 +41,5 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    {/* <div>
-      <App />
-    </div> */}
   </React.StrictMode>
 );

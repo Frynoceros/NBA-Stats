@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import {nbaLogos} from '../../../public/Logos/nbaLogos';
+import {nbaLogos} from '../../assets/Logos/nbaLogos';
 import {Link} from 'react-router-dom';
 
 export default function Teams() {
