@@ -30,8 +30,6 @@ export default function Teams() {
     getTeams();
   }, []);
 
-  console.log('teams', teams);
-
   return (
     <div className=" flex flex-row w-full card bg-base-300 rounded-box flex-wrap items-end border border-white p-2 ">
       {teams.map((el) => {

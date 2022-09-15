@@ -1,18 +1,10 @@
 import React from 'react';
-import Main from './MainDiv/Main';
-import Hero from './MainDiv/Hero';
-import Footer from './Footer';
+import MainDiv from './MainDiv/MainDiv';
 
 export default function EntireContainer() {
   return (
-    <div className="flex flex-col w-screen h-screen border border-yellow">
-      <div className="flex basis-1/3 m-1">
-        <Hero />
-      </div>
-      <div className="flex basis-2/3 m-1">
-        <Main />
-      </div>
-      <Footer />
+    <div className="flex flex-col w-full h-full border border-yellow">
+      <MainDiv />
     </div>
   );
 }

@@ -1,18 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './Components/App';
+import App from './Components/Routes/App';
 import './assets/Styles/index.css';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Teams from './Components/MainDiv/Teams';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Outlet,
+  Link,
+} from 'react-router-dom';
+import ErrorPage from './ErrorPage';
+import Teams from './Components/Routes/Teams';
+import Roster from './Components/Routes/Roster';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: 'teams',
+        element: <Teams />,
+        children: [
+          {
+            path: 'teams/:teamId/',
+            element: <Roster />,
+          },
+        ],
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="teams" element={<Teams />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
+    {/* <div>
+      <App />
+    </div> */}
   </React.StrictMode>
 );
