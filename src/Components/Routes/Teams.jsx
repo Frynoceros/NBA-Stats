@@ -1,16 +1,19 @@
 import React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
+
 import {nbaLogos} from '../../assets/Logos/nbaLogos';
 import {Link} from 'react-router-dom';
 
-export default function Teams() {
+export default function Teams(props) {
   const [teams, setTeams] = useState([]);
-  const [currTeam, setCurrTeam] = useState([]);
+  const [currTeam, setCurrTeam] = useState('');
 
   const handleInput = (e) => {
     const buttonValue = e.target.innerHTML;
+
     console.log(buttonValue);
     setCurrTeam(buttonValue);
+    console.log(currTeam);
   };
 
   async function getTeams() {
@@ -49,7 +52,7 @@ export default function Teams() {
               <figure className=" place-items-center ">
                 <img
                   className="p-5 max-h-40 max-w-36 "
-                  src={nbaLogos[el.abbreviation]}
+                  src={nbaLogos[el.city]}
                   alt={`NBA Logo for ${el.full_name}`}
                 />
               </figure>
@@ -60,7 +63,7 @@ export default function Teams() {
               onClick={handleInput}
             >
               <Link
-                to={`/teams/${el.abbreviation}`}
+                to={`/teams/${el.id}`}
                 value={el.abbreviation}
                 className="card-title text-xl text-center mx-5 flex-end "
                 onClick={handleInput}

@@ -1,12 +1,18 @@
+import {error} from 'daisyui/src/colors';
 import {useState, useEffect} from 'react';
+// import nba from 'nba.js';
 
 export default function () {
   const [roster, setRoster] = useState([]);
+  const [year, setYear] = useState('');
+  const [value, setValue] = useState();
+
+  const selectYear = async () => {};
 
   const getRoster = async () => {
     try {
       const response = await fetch(
-        'https://data.nba.net/json/cms/noseason/team/blazers/roster.json'
+        'http://data.nba.net/json/cms/noseason/team/blazers/roster.json'
       );
       const jsonData = await response.json();
       console.log('json', jsonData);
@@ -15,6 +21,10 @@ export default function () {
       console.error(err.message);
     }
   };
+
+  useEffect(() => {
+    getRoster();
+  }, []);
 
   // Formula to convert players DOB to Date accepted format - json returns 'YYYYMMDD'
   function parseBirthDate(dateStr) {
@@ -47,16 +57,52 @@ export default function () {
     return school;
   }
 
-  useEffect(() => {
-    getRoster();
-  }, []);
+  const [teams, setTeams] = useState([]);
+  const [currTeam, setCurrTeam] = useState('');
 
-  console.log('Roster', roster);
+  async function getTeams() {
+    try {
+      const response = await fetch(
+        'https://free-nba.p.rapidapi.com/teams?page=0',
+        {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key':
+              'b5c4c39097mshbdf9c62192f635ep17097ejsn1c288da36596',
+            'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
+          },
+        }
+      );
+      const jsonData = await response.json();
+      setTeams(jsonData.data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  useEffect(() => {
+    getTeams();
+  }, []);
 
   return (
     <div className="min-w-full">
       <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-100 dark:bg-gray-900">
         <h2 className="mb-3 text-2xl font-semibold leading-tight">Roster</h2>
+        {/* <div className="dropdown">
+          {teams.map((team) => {
+            return (
+              <select key={`${team.abbreviation}`}>
+                <option
+                  value={team.city}
+                  onChange={(e) => setCurrTeam(e.currentTarget.value)}
+                >
+                  {console.log(currTeam)}
+                  {team.city}
+                </option>
+              </select>
+            );
+          })}
+        </div> */}
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
             <thead className="rounded-t-lg dark:bg-gray-700">
