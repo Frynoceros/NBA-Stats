@@ -29,11 +29,11 @@ export default function Hero() {
             </li>
             <li>
               {' '}
-              <Link to={'/teams/POR'}>Season Leaders</Link>
+              <Link to={'/leagueLeaders'}>Season Leaders</Link>
             </li>
             <li>
               {' '}
-              <Link to={'/teams/POR'}>All Time Leaders</Link>
+              <Link to={'/allTimeLeaders'}>All Time Leaders</Link>
             </li>
           </ul>
         </div>

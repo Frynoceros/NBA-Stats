@@ -11,10 +11,10 @@ export default function SharedLayout() {
       <Navbar />
 
       <Hero />
-      <LeagueLeaders />
+      {/* <LeagueLeaders /> */}
 
       <Outlet />
-      <AllTimeLeaders />
+      {/* <AllTimeLeaders /> */}
 
       <Footer />
     </>

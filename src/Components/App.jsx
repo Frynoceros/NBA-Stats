@@ -6,6 +6,8 @@ import Teams from '../Components/Routes/Teams';
 import TeamHome from '../Components/Routes/TeamHome';
 import Roster from '../Components/Routes/Roster';
 import Home from '../Components/Routes/Home';
+import AllTimeLeaders from './Routes/AllTimeLeaders';
+import LeagueLeaders from './Routes/LeagueLeaders';
 
 function App() {
   //   const [teams, setTeams] = useState([]);
@@ -49,9 +51,11 @@ function App() {
             <Route index element={<Teams />} />
             <Route path=":teamId" element={<TeamHome />} />
           </Route>
+          <Route path="allTimeLeaders" element={<AllTimeLeaders />}></Route>
+          <Route path="leagueLeaders" element={<LeagueLeaders />}></Route>
 
           <Route path="roster" element={<Roster />} />
-          <Route index element={<Teams />} />
+          {/* <Route index element={<Teams />} /> */}
           <Route path="roster/:teamId " element={<Teams />} />
           <Route path="*" element={<Error />} />
         </Route>
