@@ -1,8 +1,7 @@
-import {error} from 'daisyui/src/colors';
 import {useState, useEffect} from 'react';
 // import nba from 'nba.js';
 
-export default function () {
+export default function Roster() {
   const [roster, setRoster] = useState([]);
   const [year, setYear] = useState('');
   const [value, setValue] = useState();
