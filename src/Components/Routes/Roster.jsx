@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
-// import nba from 'nba.js';
 
-export default function Roster() {
+export default function Roster({currTeam, setCurrTeam}) {
   const [roster, setRoster] = useState([]);
   const [year, setYear] = useState('');
   const [value, setValue] = useState();
@@ -11,7 +10,7 @@ export default function Roster() {
   const getRoster = async () => {
     try {
       const response = await fetch(
-        'http://localhost:8010/proxy/commonteamroster?LeagueID=00&Season=2022-23&TeamID=1610612757',
+        `http://localhost:8010/proxy/commonteamroster?LeagueID=00&Season=2022-23&TeamID=1610612757`,
         {
           method: 'GET',
           headers: {
@@ -41,29 +40,12 @@ export default function Roster() {
     getRoster();
   }, []);
 
-  console.log(roster);
-  // const [teams, setTeams] = useState([]);
-  // const [currTeam, setCurrTeam] = useState('');
+  console.log(currTeam);
 
   return (
     <div className="min-w-full">
       <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-100 dark:bg-gray-900">
         <h2 className="mb-3 text-2xl font-semibold leading-tight">Roster</h2>
-        {/* <div className="dropdown">
-          {teams.map((team) => {
-            return (
-              <select key={`${team.abbreviation}`}>
-                <option
-                  value={team.city}
-                  onChange={(e) => setCurrTeam(e.currentTarget.value)}
-                >
-                  {console.log(currTeam)}
-                  {team.city}
-                </option>
-              </select>
-            );
-          })}
-        </div> */}
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
             <thead className="rounded-t-lg dark:bg-gray-700">
