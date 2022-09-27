@@ -11,11 +11,27 @@ export default function Roster() {
   const getRoster = async () => {
     try {
       const response = await fetch(
-        'http://data.nba.net/json/cms/noseason/team/blazers/roster.json'
+        'http://localhost:8010/proxy/commonteamroster?LeagueID=00&Season=2022-23&TeamID=1610612757',
+        {
+          method: 'GET',
+          headers: {
+            Connection: 'keep-alive',
+            Accept: 'application/json, text/plain, */*',
+            'x-nba-stats-token': 'true',
+            'User-Agent':
+              'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36',
+            'x-nba-stats-origin': 'stats',
+            'Sec-Fetch-Site': 'same-origin',
+            'Sec-Fetch-Mode': 'cors',
+            Referer: 'https://stats.nba.com/',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'en-US,en;q=0.9',
+          },
+        }
       );
       const jsonData = await response.json();
-      console.log('json', jsonData);
-      setRoster(jsonData.sports_content.roster.players.player);
+      console.log('json', jsonData.resultSets[0].rowSet);
+      setRoster(jsonData.resultSets[0].rowSet);
     } catch (err) {
       console.error(err.message);
     }
@@ -25,63 +41,9 @@ export default function Roster() {
     getRoster();
   }, []);
 
-  // Formula to convert players DOB to Date accepted format - json returns 'YYYYMMDD'
-  function parseBirthDate(dateStr) {
-    const birth = new Date(
-      dateStr.slice(0, 4),
-      dateStr.slice(4, 6),
-      dateStr.slice(6, 8)
-    );
-
-    const since = Date.now() - birth.getTime();
-    return isNaN(since) || since < 0 ? undefined : birth;
-  }
-
-  // Get age after conversion
-  function getAge(birthDate) {
-    const now = new Date();
-    const mth = now.getMonth() - birthDate.getMonth();
-    const adjust =
-      mth < 0 || (mth === 0 && now.getDate() < birthDate.getDate()) ? 1 : 0;
-    return now.getFullYear() - birthDate.getFullYear() - adjust;
-  }
-
-  // Get schools after conversion
-  function getSchool(affiliation) {
-    let school = '';
-    for (let i = 0; i < affiliation.length; i++) {
-      if (affiliation[i] === '/') return school;
-      school += affiliation[i];
-    }
-    return school;
-  }
-
-  const [teams, setTeams] = useState([]);
-  const [currTeam, setCurrTeam] = useState('');
-
-  async function getTeams() {
-    try {
-      const response = await fetch(
-        'https://free-nba.p.rapidapi.com/teams?page=0',
-        {
-          method: 'GET',
-          headers: {
-            'X-RapidAPI-Key':
-              'b5c4c39097mshbdf9c62192f635ep17097ejsn1c288da36596',
-            'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
-          },
-        }
-      );
-      const jsonData = await response.json();
-      setTeams(jsonData.data);
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  useEffect(() => {
-    getTeams();
-  }, []);
+  console.log(roster);
+  // const [teams, setTeams] = useState([]);
+  // const [currTeam, setCurrTeam] = useState('');
 
   return (
     <div className="min-w-full">
@@ -140,36 +102,34 @@ export default function Roster() {
                 return (
                   <tr
                     className="text-right border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-800"
-                    key={player.person_id}
+                    key={player[14]}
                   >
                     <td className="px-3 py-2 text-center">
-                      <span>{`${player.first_name} ${player.last_name}`}</span>
+                      <span>{player[3]}</span>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span>{player.jersey_number}</span>
+                      <span>{player[6]}</span>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span>{player.position_short}</span>
+                      <span>{player[7]}</span>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span>{`${player.height_ft}-${player.height_in}`}</span>
+                      <span>{player[8]}</span>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span>{player.weight_lbs}</span>
+                      <span>{player[9]}</span>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span>
-                        {parseBirthDate(player.birth_date).toLocaleDateString()}
-                      </span>
+                      <span>{player[10]}</span>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span>{getAge(parseBirthDate(player.birth_date))}</span>
+                      <span>{player[11]}</span>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span>{player.years_pro}</span>
+                      <span>{player[12]}</span>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span>{getSchool(player.affiliation)}</span>
+                      <span>{player[13]}</span>
                     </td>
                   </tr>
                 );

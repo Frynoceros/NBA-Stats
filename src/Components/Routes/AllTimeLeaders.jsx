@@ -30,7 +30,7 @@ export default function AllTimeLeaders() {
     'FGA',
     'FG_PCT',
     'FG3M',
-    '3PA',
+    'FG3A',
     'FG3_PCT',
     'FTM',
     'FTA',
@@ -46,56 +46,56 @@ export default function AllTimeLeaders() {
 
   const allStats = {
     headers: stats,
-    0: 'PLAYER_ID',
-    1: 'PLAYER_NAME',
-    2: 'GP',
-    3: 'MIN',
-    4: 'FGM',
-    5: 'FGA',
-    6: 'FG_PCT',
-    7: 'FG3M',
-    8: 'FG3A',
-    9: 'FG3_PCT',
-    10: 'FTM',
-    11: 'FTA',
-    12: 'FT_PCT',
-    13: 'OREB',
-    14: 'DREB',
-    15: 'REB',
-    16: 'AST',
-    17: 'STL',
-    18: 'BLK',
-    19: 'TOV',
-    20: 'PF',
-    21: 'PTS',
-    22: 'AST_TOV',
-    23: 'STL_TOV',
-    24: 'EFG_PCT',
-    25: 'TS_PCT',
-    26: 'GP_RANK',
-    27: 'MIN_RANK',
-    28: 'FGM_RANK',
-    29: 'FGA_RANK',
-    30: 'FG_PCT_RANK',
-    31: 'FG3M_RANK',
-    32: 'FG3A_RANK',
-    33: 'FG3_PCT_RANK',
-    34: 'FTM_RANK',
-    35: 'FTA_RANK',
-    36: 'FT_PCT_RANK',
-    37: 'OREB_RANK',
-    38: 'DREB_RANK',
-    39: 'REB_RANK',
-    40: 'AST_RANK',
-    41: 'STL_RANK',
-    42: 'BLK_RANK',
-    43: 'TOV_RANK',
-    44: 'PF_RANK',
-    45: 'PTS_RANK',
-    46: 'AST_TOV_RANK',
-    47: 'STL_TOV_RANK',
-    48: 'EFG_PCT1',
-    49: 'TS_PCT1',
+    PLAYER_ID: 0,
+    PLAYER_NAME: 1,
+    GP: 2,
+    MIN: 3,
+    FGM: 4,
+    FGA: 5,
+    FG_PCT: 6,
+    FG3M: 7,
+    FG3A: 8,
+    FG3_PCT: 9,
+    FTM: 10,
+    FTA: 11,
+    FT_PCT: 12,
+    OREB: 13,
+    DREB: 14,
+    REB: 15,
+    AST: 16,
+    STL: 17,
+    BLK: 18,
+    TOV: 19,
+    PF: 20,
+    PTS: 21,
+    AST_TOV: 22,
+    STL_TOV: 23,
+    EFG_PCT: 24,
+    TS_PCT: 25,
+    GP_RANK: 26,
+    MIN_RANK: 27,
+    FGM_RANK: 28,
+    FGA_RANK: 29,
+    FG_PCT_RANK: 30,
+    FG3M_RANK: 31,
+    FG3A_RANK: 32,
+    FG3_PCT_RANK: 33,
+    FTM_RANK: 34,
+    FTA_RANK: 35,
+    FT_PCT_RANK: 36,
+    OREB_RANK: 37,
+    DREB_RANK: 38,
+    REB_RANK: 39,
+    AST_RANK: 40,
+    STL_RANK: 41,
+    BLK_RANK: 42,
+    TOV_RANK: 43,
+    PF_RANK: 44,
+    PTS_RANK: 45,
+    AST_TOV_RANK: 46,
+    STL_TOV_RANK: 47,
+    EFG_PCT1: 'EFG_PCT1',
+    TS_PCT1: 'TS_PCT1',
     name: 'LeagueLeaders',
   };
 
@@ -113,13 +113,16 @@ export default function AllTimeLeaders() {
   const decrementRowCount = () => {
     let addRowCount = topRowCount;
     let minusRowCount = bottomRowCount;
-    setTopRowCount((addRowCount -= 10));
-    setBottomRowCount((minusRowCount -= 10));
+    if (bottomRowCount > 0) {
+      setTopRowCount((addRowCount -= 10));
+      setBottomRowCount((minusRowCount -= 10));
+    }
   };
   const getAllTimeLeaders = async () => {
     try {
+      //https://stats.nba.com/stats/
       const response = await fetch(
-        `https://stats.nba.com/stats/leagueLeaders?ActiveFlag=No&LeagueID=00&PerMode=Totals&Scope=S&Season=All%20Time&SeasonType=Regular%20Season&StatCategory=${currentStat}`
+        `http://localhost:8010/proxy/leagueLeaders?ActiveFlag=No&LeagueID=00&PerMode=Totals&Scope=S&Season=All%20Time&SeasonType=Regular%20Season&StatCategory=${currentStat}`
       );
       const jsonData = await response.json();
       console.log(
@@ -138,39 +141,25 @@ export default function AllTimeLeaders() {
     getAllTimeLeaders();
   }, [currentStat, topRowCount]);
 
+  // const sortLeaders = () => {
+  //   let sortedLeaders = allTimeLeaders[allStats[MIN]].sort((a, b) => a - b);
+  //   return setAllTimeLeaders(sortedLeaders);
+  // };
+
+  const findPlayer = () => {};
+
   return (
     <div className="">
       <div className="pb-10 bg-primary flex">
-        <div className="form-control">
-          <div className="input-group">
-            <input
-              type="text"
-              placeholder="Search…"
-              className="input input-bordered"
-            />
-            <button className="btn btn-square">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
         <div>
           <div className="form-control">
             <div className="input-group">
               <select
-                onChange={(e) => setCurrentStat(e.target.value)}
+                onChange={(e) => {
+                  setCurrentStat(e.target.value);
+                  setBottomRowCount(0);
+                  setTopRowCount(10);
+                }}
                 className="select select-bordered"
               >
                 <option>Pick category</option>
@@ -189,12 +178,12 @@ export default function AllTimeLeaders() {
               <div className="flex items-center"></div>
             </th>
             <th scope="col" className="py-2 " key={`label rank`}>
-              <div className="tabs tabs-boxed">
+              <div className="tabs tabs-boxed flex justify-center">
                 <a className="tab">#</a>
               </div>
             </th>
             <th scope="col" className="py-2 " key={`label player`}>
-              <div className="tabs tabs-boxed">
+              <div className="tabs tabs-boxed flex justify-center">
                 <a className="tab">Player</a>
               </div>
             </th>
@@ -202,10 +191,10 @@ export default function AllTimeLeaders() {
               return (
                 <th
                   scope="col"
-                  className="py-2 text-center "
+                  className="py-2 text-center"
                   key={`label ${label}`}
                 >
-                  <div className="tabs tabs-boxed">
+                  <div className="tabs tabs-boxed flex justify-center">
                     <a className="tab">{label}</a>
                   </div>
                 </th>
@@ -217,7 +206,7 @@ export default function AllTimeLeaders() {
           {allTimeLeaders.map((player, index) => {
             return (
               <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 "
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600  "
                 key={player[0]}
               >
                 <td className="p-4 w-4">
@@ -236,10 +225,10 @@ export default function AllTimeLeaders() {
                   </div>
                 </td>
 
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white items-center">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white flex justify-center">
                   {/* rank */}
-                  {/* {`${player}.${currentStat}_RANK`} */}
-                  {player[45]}
+
+                  {player[allStats[`${currentStat}_RANK`]]}
                 </td>
                 {/* name */}
                 <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white items-center">
