@@ -1,42 +1,134 @@
 import {useState, useEffect} from 'react';
 
-const labels = [
-  '#',
-  'PLAYER',
-  'GP',
-  'MIN',
-  'PTS',
-  'FGM',
-  'FGA',
-  'FG%',
-  '3PM',
-  '3PA',
-  '3P%',
-  'FTM',
-  'FTA',
-  'FT%',
-  'OREB',
-  'DREB',
-  'REB',
-  'AST',
-  'STL',
-  'BLK',
-  'TOV',
-  'EFG',
-  'TS%',
-];
-
 export default function AllTimeLeaders() {
-  const [allTimeLeaders, setAllTimeLeaders] = useState([]);
+  const stats = [
+    'GP',
+    'MIN',
+    'PTS',
+    'FGM',
+    'FGA',
+    'FG%',
+    '3PM',
+    '3PA',
+    '3P%',
+    'FTM',
+    'FTA',
+    'FT%',
+    'OREB',
+    'DREB',
+    'REB',
+    'AST',
+    'STL',
+    'BLK',
+    'TOV',
+  ];
 
+  const searchStat = [
+    'MIN',
+    'PTS',
+    'FGM',
+    'FGA',
+    'FG_PCT',
+    'FG3M',
+    '3PA',
+    'FG3_PCT',
+    'FTM',
+    'FTA',
+    'FT_PCT',
+    'OREB',
+    'DREB',
+    'REB',
+    'AST',
+    'STL',
+    'BLK',
+    'TOV',
+  ];
+
+  const allStats = {
+    headers: stats,
+    0: 'PLAYER_ID',
+    1: 'PLAYER_NAME',
+    2: 'GP',
+    3: 'MIN',
+    4: 'FGM',
+    5: 'FGA',
+    6: 'FG_PCT',
+    7: 'FG3M',
+    8: 'FG3A',
+    9: 'FG3_PCT',
+    10: 'FTM',
+    11: 'FTA',
+    12: 'FT_PCT',
+    13: 'OREB',
+    14: 'DREB',
+    15: 'REB',
+    16: 'AST',
+    17: 'STL',
+    18: 'BLK',
+    19: 'TOV',
+    20: 'PF',
+    21: 'PTS',
+    22: 'AST_TOV',
+    23: 'STL_TOV',
+    24: 'EFG_PCT',
+    25: 'TS_PCT',
+    26: 'GP_RANK',
+    27: 'MIN_RANK',
+    28: 'FGM_RANK',
+    29: 'FGA_RANK',
+    30: 'FG_PCT_RANK',
+    31: 'FG3M_RANK',
+    32: 'FG3A_RANK',
+    33: 'FG3_PCT_RANK',
+    34: 'FTM_RANK',
+    35: 'FTA_RANK',
+    36: 'FT_PCT_RANK',
+    37: 'OREB_RANK',
+    38: 'DREB_RANK',
+    39: 'REB_RANK',
+    40: 'AST_RANK',
+    41: 'STL_RANK',
+    42: 'BLK_RANK',
+    43: 'TOV_RANK',
+    44: 'PF_RANK',
+    45: 'PTS_RANK',
+    46: 'AST_TOV_RANK',
+    47: 'STL_TOV_RANK',
+    48: 'EFG_PCT1',
+    49: 'TS_PCT1',
+    name: 'LeagueLeaders',
+  };
+
+  const [allTimeLeaders, setAllTimeLeaders] = useState([]);
+  const [currentStat, setCurrentStat] = useState(stats[2]);
+  const [topRowCount, setTopRowCount] = useState(10);
+  const [bottomRowCount, setBottomRowCount] = useState(0);
+
+  const incrementRowCount = () => {
+    let addRowCount = topRowCount;
+    let minusRowCount = bottomRowCount;
+    setTopRowCount((addRowCount += 10));
+    setBottomRowCount((minusRowCount += 10));
+  };
+  const decrementRowCount = () => {
+    let addRowCount = topRowCount;
+    let minusRowCount = bottomRowCount;
+    setTopRowCount((addRowCount -= 10));
+    setBottomRowCount((minusRowCount -= 10));
+  };
   const getAllTimeLeaders = async () => {
     try {
       const response = await fetch(
-        'https://stats.nba.com/stats/leagueLeaders?ActiveFlag=No&LeagueID=00&PerMode=Totals&Scope=S&Season=All%20Time&SeasonType=Regular%20Season&StatCategory=PTS'
+        `https://stats.nba.com/stats/leagueLeaders?ActiveFlag=No&LeagueID=00&PerMode=Totals&Scope=S&Season=All%20Time&SeasonType=Regular%20Season&StatCategory=${currentStat}`
       );
       const jsonData = await response.json();
-      console.log('AllTime', jsonData.resultSet.rowSet.slice(0, 10));
-      setAllTimeLeaders(jsonData.resultSet.rowSet.slice(0, 10));
+      console.log(
+        `AllTime ${currentStat}`,
+        jsonData.resultSet.rowSet.slice(bottomRowCount, topRowCount)
+      );
+      setAllTimeLeaders(
+        jsonData.resultSet.rowSet.slice(bottomRowCount, topRowCount)
+      );
     } catch (err) {
       console.error(err.message);
     }
@@ -44,72 +136,77 @@ export default function AllTimeLeaders() {
 
   useEffect(() => {
     getAllTimeLeaders();
-  }, []);
+  }, [currentStat, topRowCount]);
 
-  const sortBy = (arr) => {
-    allTimeLeaders.sort((a, b) => a - b);
-  };
   return (
-    <div className="overflow-x-auto relative shadow-md sm:rounded-lg ">
-      <div className="pb-4 bg-white dark:bg-gray-900">
-        <label htmlFor="table-search" className="sr-only">
-          Search
-        </label>
-        <div className="relative mt-1">
-          <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-            <svg
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+    <div className="">
+      <div className="pb-10 bg-primary flex">
+        <div className="form-control">
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Search…"
+              className="input input-bordered"
+            />
+            <button className="btn btn-square">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
           </div>
-          <input
-            type="text"
-            id="table-search"
-            className="block p-2 pl-10 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search for player"
-          />
+        </div>
+        <div>
+          <div className="form-control">
+            <div className="input-group">
+              <select
+                onChange={(e) => setCurrentStat(e.target.value)}
+                className="select select-bordered"
+              >
+                <option>Pick category</option>
+                {searchStat.map((stat, index) => {
+                  return <option key={`dropDown ${stat}`}>{stat}</option>;
+                })}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-zebra active">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-all-search"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-all-search" className="sr-only">
-                  checkbox
-                </label>
+              <div className="flex items-center"></div>
+            </th>
+            <th scope="col" className="py-2 " key={`label rank`}>
+              <div className="tabs tabs-boxed">
+                <a className="tab">#</a>
               </div>
             </th>
-            {labels.map((label, index) => {
+            <th scope="col" className="py-2 " key={`label player`}>
+              <div className="tabs tabs-boxed">
+                <a className="tab">Player</a>
+              </div>
+            </th>
+            {stats.map((label, index) => {
               return (
-                <th scope="col" className="py-3 px-6" key={`label ${label}`}>
-                  <div className="flex items-center">
-                    {label}
-                    <a href="#">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="ml-1 w-3 h-3"
-                        aria-hidden="true"
-                        fill="currentColor"
-                        viewBox="0 0 320 512"
-                      >
-                        <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                      </svg>
-                    </a>
+                <th
+                  scope="col"
+                  className="py-2 text-center "
+                  key={`label ${label}`}
+                >
+                  <div className="tabs tabs-boxed">
+                    <a className="tab">{label}</a>
                   </div>
                 </th>
               );
@@ -141,7 +238,8 @@ export default function AllTimeLeaders() {
 
                 <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white items-center">
                   {/* rank */}
-                  {index + 1}
+                  {/* {`${player}.${currentStat}_RANK`} */}
+                  {player[45]}
                 </td>
                 {/* name */}
                 <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white items-center">
@@ -242,15 +340,6 @@ export default function AllTimeLeaders() {
                   {player[19]}
                 </td>
                 {/* EFG */}
-
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white items-center">
-                  {(player[24] * 100).toFixed(1)}
-                </td>
-                {/* TS */}
-
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white items-center">
-                  {(player[25] * 100).toFixed(1)}
-                </td>
               </tr>
             );
           })}
@@ -258,106 +347,14 @@ export default function AllTimeLeaders() {
       </table>
 
       {/* *****PAGINATION***** */}
-      <nav
-        className="flex justify-between items-center pt-4"
-        aria-label="Table navigation"
-      >
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-          Showing{' '}
-          <span className="font-semibold text-gray-900 dark:text-white">
-            1-10
-          </span>{' '}
-          of{' '}
-          <span className="font-semibold text-gray-900 dark:text-white">
-            1000
-          </span>
-        </span>
-        <ul className="inline-flex items-center -space-x-px">
-          <li>
-            <a
-              href="#"
-              className="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Previous</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              className="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              ...
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              100
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Next</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <div className="btn-group grid grid-cols-2">
+        <button onClick={decrementRowCount} className="btn btn-outline">
+          Previous page
+        </button>
+        <button onClick={incrementRowCount} className="btn btn-outline">
+          Next
+        </button>
+      </div>
     </div>
   );
 }
