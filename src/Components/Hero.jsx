@@ -1,19 +1,12 @@
-import Home from './Routes/Home';
 import {Link, useParams} from 'react-router-dom';
+
 export default function Hero() {
   const {teamId} = useParams();
   return (
     <div className=" w-screen card bg-base-300 rounded-box  border border-white">
       <div className="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12 bg-base-300">
         <h2 className="text-5xl font-bold dark:text-gray-50">{teamId}</h2>
-        <p className="dark:text-gray-400">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
-          facilis quod accusantium beatae cum nam adipisci reiciendis omnis
-          possimus error quo animi voluptas magni, at incidunt. Nulla ex at
-          ullam corporis quidem adipisci vitae, perferendis dolorem libero minus
-          atque tenetur enim pariatur cupiditate commodi in beatae, ipsa
-          eligendi? Quis, saepe.
-        </p>
+        <p className="dark:text-gray-400">Welcome to the NBA Stat Page!</p>
       </div>
       <div className="flex-row justify-between">
         <div>
@@ -21,13 +14,7 @@ export default function Hero() {
             <li>
               <Link to={'/'}>Home</Link>
             </li>
-            <li>
-              <Link to={'teams'}>Teams</Link>
-            </li>
-            <li>
-              {' '}
-              <Link to={'/roster'}>Roster</Link>
-            </li>
+
             <li>
               {' '}
               <Link to={'/leagueLeaders'}>Season Leaders</Link>
