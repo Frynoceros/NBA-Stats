@@ -176,7 +176,7 @@ export default function AllTimeLeaders() {
               <th scope="col" className="p-4">
                 <div className="flex items-center"></div>
               </th>
-              <th scope="col" className="py-2" key={`label rank`}>
+              <th scope="col" className="py-2 text-white" key={`label rank`}>
                 <div className="tabs tabs-boxed flex justify-center">
                   <a className="tab">#</a>
                 </div>

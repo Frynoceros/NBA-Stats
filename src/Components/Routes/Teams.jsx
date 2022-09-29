@@ -3,25 +3,22 @@ import {useState} from 'react';
 import teamData from '../../assets/teamData';
 
 import {nbaLogos} from '../../assets/Logos/nbaLogos';
-import {Link, Outlet, useParams} from 'react-router-dom';
+import {Link, useOutletContext, useParams} from 'react-router-dom';
 
 export default function Teams() {
   const {teamId} = useParams();
-  const [currTeam, setCurrTeam] = useState([teamId]);
+  const [currTeam, setCurrTeam] = useOutletContext();
   const [teamName, setTeamName] = useState('');
 
   const handleClick = (teamId, simpleName) => {
-    setCurrTeam(teamId);
-    setTeamName(simpleName);
+    setCurrTeam(simpleName);
+    // setTeamName(simpleName);
     console.log(teamName);
   };
 
   console.log('teams', currTeam);
   return (
     <div className=" flex flex-row w-full card bg-base-300 rounded-box flex-wrap items-end border border-white p-2 ">
-      <div>
-        <Outlet context={[currTeam, setCurrTeam]} />
-      </div>
       {teamData.map(
         ({teamId, abbreviation, teamName, simpleName, location}) => {
           return (
@@ -44,7 +41,7 @@ export default function Teams() {
                   <Link
                     key={`team ${teamId}`}
                     to={`${teamId}`}
-                    // value={teamName.abbreviation}
+                    value={teamName}
                     className="card-title text-xl text-center mx-5 flex-end "
                     onClick={() => handleClick(teamId, simpleName)}
                   >

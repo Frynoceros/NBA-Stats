@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {useOutletContext, useParams, Outlet} from 'react-router-dom';
+import {useOutletContext, useParams} from 'react-router-dom';
 import Roster from './Roster';
 import {nbaLogos} from '../../assets/Logos/nbaLogos';
 import Schedule from '../Schedule';
+import nbaSchedule from '../../assets/nbaSchedule';
 
 export default function TeamHome() {
   const {teamId} = useParams();
@@ -13,7 +14,7 @@ export default function TeamHome() {
   const getRoster = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8010/proxy/commonteamroster?LeagueID=00&Season=2022-23&TeamID=${currTeam}`,
+        `http://localhost:8010/proxy/commonteamroster?LeagueID=00&Season=2022-23&TeamID=${teamId}`,
         {
           method: 'GET',
           headers: {
@@ -32,38 +33,8 @@ export default function TeamHome() {
         }
       );
       const jsonData = await response.json();
-      console.log('json', jsonData.resultSets[0].rowSet);
+      // console.log('json', jsonData);
       setRoster(jsonData.resultSets[0].rowSet);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
-  const getSchedule = async () => {
-    try {
-      const response = await fetch(
-        `https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_9.json`
-        // ,
-        // {
-        //   method: 'GET',
-        //   headers: {
-        //     Connection: 'keep-alive',
-        //     Accept: 'application/json, text/plain, */*',
-        //     'x-nba-stats-token': 'true',
-        //     'User-Agent':
-        //       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36',
-        //     'x-nba-stats-origin': 'stats',
-        //     'Sec-Fetch-Site': 'same-origin',
-        //     'Sec-Fetch-Mode': 'cors',
-        //     Referer: 'https://stats.nba.com/',
-        //     'Accept-Encoding': 'gzip, deflate, br',
-        //     'Accept-Language': 'en-US,en;q=0.9',
-        //   },
-        // }
-      );
-      const scheduleJson = await response.json();
-      console.log('Schedule', scheduleJson);
-      setSchedule(scheduleJson);
     } catch (err) {
       console.error(err.message);
     }
@@ -71,15 +42,10 @@ export default function TeamHome() {
 
   useEffect(() => {
     getRoster();
-    console.log('hi');
-  }, [currTeam]);
+  }, [teamId]);
 
-  useEffect(() => {
-    getSchedule();
-    console.log('hi');
-  }, [schedule]);
-
-  console.log(currTeam);
+  // getTodaysGames();
+  // console.log(todaysGames);
 
   return (
     <div className="flex flex-row w-screen h-screen card bg-base-300 rounded-box border border-white m-1 overflow-x">
