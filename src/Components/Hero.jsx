@@ -3,13 +3,11 @@ import nbaSchedule from '../assets/nbaSchedule';
 
 export default function Hero({currTeam, setCurrTeam}) {
   const {teamId} = useParams();
-  // const [currTeam, setCurrTeam] = useOutletContext();
 
-  let todaysGames;
+  let todaysGames = [];
   function getTodaysGames() {
     const today = getFormattedDate(new Date());
 
-    // console.log('hi', today);
     nbaSchedule.filter((date, index) => {
       if (
         date.leagueSchedule.gameDates[0].gameDate === `${today} 12:00:00 AM`
@@ -18,6 +16,7 @@ export default function Hero({currTeam, setCurrTeam}) {
       }
 
       console.log('No Games');
+      return 'No Games Today';
     });
   }
 
@@ -36,11 +35,8 @@ export default function Hero({currTeam, setCurrTeam}) {
     <div className=" w-screen card bg-base-300 rounded-box border border-white ">
       <div className="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12 bg-base-300 ">
         <h1 className="text-5xl font-bold dark:text-gray-50">{`${currTeam} Home`}</h1>
-        {/* <p className="dark:text-secondary">Welcome to the NBA Stat Page!</p> */}
       </div>
-      {/* <div>
-        <h2 className="flex justify-center text-2xl pb-3">Upcoming Games</h2>
-      </div> */}
+
       <div className="flex justify-evenly m-3 p-3 ">
         {todaysGames.map((gameCard) => {
           const date = new Date(gameCard.gameDateTimeUTC);

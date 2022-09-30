@@ -12,16 +12,17 @@ export default function Roster({roster, setRoster}) {
   };
 
   return (
-    <div className="min-w-full max-w-max">
-      <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-100 dark:bg-gray-900">
-        <h2 className="mb-3 text-2xl font-semibold leading-tight text-center">
+    <div className="max-w-max min-w-full ">
+      <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-100 dark:bg-gray-900 flex flex-col min-h-screen place-items-center ">
+        <h2 className="mb-3 text-2xl font-semibold leading-tight text-center ">
           {`${currTeam} Roster`}
         </h2>
-        <div className="max-w-max overflow-y-auto">
-          <table className="min-w-full text-xs table-zebra active">
-            <thead className="rounded-t-lg dark:bg-gray-700">
+        <div className="min-h-screen ">
+          {/* max-w-max overflow-y-auto flex justify-center  */}
+          <table className="text-xs table-zebra active ">
+            <thead className="rounded-t-lg dark:bg-gray-700 ">
               <tr className="text-right">
-                <th title="PLAYER" className="p-3 text-center">
+                <th title="PLAYER" className="p-3 text-center ">
                   PLAYER
                 </th>
                 <th title="NUMBER" className="p-3 text-center">
@@ -54,7 +55,7 @@ export default function Roster({roster, setRoster}) {
               {roster.map((player, index) => {
                 return (
                   <tr
-                    className="text-right border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-800"
+                    className="text-right border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-800 "
                     key={index}
                   >
                     <td className="px-3 py-2 text-center">

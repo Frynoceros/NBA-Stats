@@ -8,11 +8,9 @@ import {Link, useOutletContext, useParams} from 'react-router-dom';
 export default function Teams() {
   const {teamId} = useParams();
   const [currTeam, setCurrTeam] = useOutletContext();
-  const [teamName, setTeamName] = useState('');
 
   const handleClick = (teamId, simpleName) => {
     setCurrTeam(simpleName);
-    // setTeamName(simpleName);
     console.log(teamName);
   };
 
@@ -43,7 +41,7 @@ export default function Teams() {
                     to={`${teamId}`}
                     value={teamName}
                     className="card-title text-xl text-center mx-5 flex-end "
-                    onClick={() => handleClick(teamId, simpleName)}
+                    onClick={() => setCurrTeam(simpleName)}
                   >
                     {simpleName}
                   </Link>

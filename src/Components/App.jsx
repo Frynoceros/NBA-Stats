@@ -5,10 +5,9 @@ import SharedLayout from './SharedLayout';
 import Teams from '../Components/Routes/Teams';
 import TeamHome from '../Components/Routes/TeamHome';
 import Roster from '../Components/Routes/Roster';
-import Schedule from './Schedule';
+import TeamSchedule from './TeamSchedule';
 import AllTimeLeaders from './Routes/AllTimeLeaders';
 import LeagueLeaders from './Routes/LeagueLeaders';
-import teamData from '../assets/teamData';
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
 
           <Route path="/" element={<Teams />} />
           <Route path="/:teamId" element={<TeamHome />}>
-            <Route path="schedule" element={<Schedule />} />
+            <Route path="schedule" element={<TeamSchedule />} />
           </Route>
 
           <Route path="allTimeLeaders" element={<AllTimeLeaders />}></Route>

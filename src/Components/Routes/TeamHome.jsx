@@ -1,15 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import {useOutletContext, useParams} from 'react-router-dom';
 import Roster from './Roster';
-import {nbaLogos} from '../../assets/Logos/nbaLogos';
-import Schedule from '../Schedule';
-import nbaSchedule from '../../assets/nbaSchedule';
+import TeamSchedule from '../TeamSchedule';
+import teamData from '../../assets/teamData';
 
 export default function TeamHome() {
   const {teamId} = useParams();
   const [roster, setRoster] = useState([teamId]);
   const [currTeam, setCurrTeam] = useOutletContext();
-  const [schedule, setSchedule] = useState([]);
+
+  const matchIdWithParams = (arr) => {
+    let name = 'd';
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].teamId === Number(teamId)) {
+        return setCurrTeam(arr[i].simpleName);
+      }
+    }
+  };
+
+  matchIdWithParams(teamData);
+  console.log(teamData[0].teamId);
+  console.log(teamId);
+  console.log('currTeam', currTeam);
 
   const getRoster = async () => {
     try {
@@ -44,17 +56,14 @@ export default function TeamHome() {
     getRoster();
   }, [teamId]);
 
-  // getTodaysGames();
-  // console.log(todaysGames);
-
   return (
     <div className="flex flex-row w-screen h-screen card bg-base-300 rounded-box border border-white m-1 overflow-x">
       <div className="basis-2/3 h-full w-full border border-white">
-        <h1 className="flex flex-row justify-center item-center">TEAM HOME</h1>
+        <h1 className="flex flex-row justify-center item-center"></h1>
         <Roster roster={roster} setRoster={setRoster} />
       </div>
       <div className="flex basis-1/3 flex-col w-full h-full border border-white">
-        <Schedule />
+        <TeamSchedule teamId={teamId} />
       </div>
     </div>
   );

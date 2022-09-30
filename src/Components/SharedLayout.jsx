@@ -6,6 +6,7 @@ import {useState} from 'react';
 
 export default function SharedLayout() {
   const [currTeam, setCurrTeam] = useState('');
+  // const [teamId, setTeamId] = useState('');
 
   const handleCurrTeam = () => {
     setCurrTeam(e.target.value);

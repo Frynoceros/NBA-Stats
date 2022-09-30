@@ -1,10 +1,6 @@
 import {useState, useEffect} from 'react';
 export default function LeagueLeaders() {
   const [leaders, setLeaders] = useState([]);
-  // const [year, setYear] = useState('');
-  // const [value, setValue] = useState();
-
-  const selectYear = async () => {};
 
   const getLeaders = async () => {
     try {
