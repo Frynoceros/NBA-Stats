@@ -25,6 +25,7 @@ export default function TeamSchedule({teamId}) {
   function getTeamGames(teamSelected) {
     const cache = [];
     for (let i = 0; i < gameDates.length; i++) {
+      console.log(gameDates[i]);
       for (let j = 0; j < gameDates[i].games.length; j++) {
         if (gameDates[i].games[j].awayTeam.teamId === teamSelected)
           cache.push(gameDates[i].games[j]);
@@ -44,18 +45,22 @@ export default function TeamSchedule({teamId}) {
         <h2 className="text-3xl text-center">{currTeam} Upcoming Games</h2>
         {teamSchedule
           .map((nextGames) => {
+            const date = new Date(nextGames.gameDateEst);
             return (
               <div
-                className="m-2 bg-primary flex flex-col text-center"
-                key={nextGames.gameId}
+                className="m-2 bg-primary flex flex-col text-center box-content  p-1 border-4"
+                key={`sched ${nextGames.gameId}`}
               >
+                <p>{date.toDateString()}</p>
                 <div className="basis-1/3 card-body text-center place-items-center flex flex-row ">
-                  <div className=" basis-1/3 flex-col mx-3 flex flex-grow">
+                  <div className=" basis-1/3 box-content  ">
+                    {/* <div className=" basis-1/3 flex-col mx-3 flex flex-grow"> */}
                     <img
                       src={nbaLogos[`${nextGames.awayTeam.teamCity}`]}
-                      className="object-fit"
+                      className="object-fit h-2/3"
+                      key={`${nextGames.awayTeam.teamCity}`}
                     />
-                    <h2 className="card-title flex justify-center my-2 flex flex-end">
+                    <h2 className="card-title flex justify-center my-2">
                       {`${nextGames.awayTeam.teamName}`}
                     </h2>
                     <p>{`${nextGames.awayTeam.wins} - ${nextGames.awayTeam.losses}`}</p>
@@ -63,8 +68,11 @@ export default function TeamSchedule({teamId}) {
 
                   <p>vs</p>
 
-                  <div className="basis-1/3 flex-col mx-3">
-                    <img src={nbaLogos[`${nextGames.homeTeam.teamCity}`]} />
+                  <div className="basis-1/3 box-content  ">
+                    <img
+                      src={nbaLogos[`${nextGames.homeTeam.teamCity}`]}
+                      className="object-fit h-2/3"
+                    />
                     <h2 className="card-title flex justify-center my-2">
                       {`${nextGames.homeTeam.teamName}`}
                     </h2>
@@ -73,7 +81,7 @@ export default function TeamSchedule({teamId}) {
                 </div>
                 <div className=" basis-1/3 my-2">
                   <p>{`${nextGames.arenaName} - ${nextGames.arenaCity}, ${nextGames.arenaState}`}</p>
-                  <p>{nextGames.gameTimeEst.toLocaleString()}</p>
+                  <p>{nextGames.gameStatusText}</p>
                 </div>
               </div>
             );

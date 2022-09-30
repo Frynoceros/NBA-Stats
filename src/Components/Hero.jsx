@@ -1,7 +1,7 @@
 import {Link, useParams, useOutletContext} from 'react-router-dom';
 import nbaSchedule from '../assets/nbaSchedule';
 
-export default function Hero({currTeam, setCurrTeam}) {
+export default function Hero() {
   const {teamId} = useParams();
 
   let todaysGames = [];

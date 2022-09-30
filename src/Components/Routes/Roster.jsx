@@ -12,13 +12,14 @@ export default function Roster({roster, setRoster}) {
   };
 
   return (
-    <div className="max-w-max min-w-full ">
-      <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-100 dark:bg-gray-900 flex flex-col min-h-screen place-items-center ">
-        <h2 className="mb-3 text-2xl font-semibold leading-tight text-center ">
-          {`${currTeam} Roster`}
-        </h2>
-        <div className="min-h-screen ">
-          {/* max-w-max overflow-y-auto flex justify-center  */}
+    <div className="max-w-max min-w-full overflow-y-auto ">
+      <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-100 dark:bg-primary my-auto flex flex-col justify-center items-center min-w-full ">
+        <div>
+          <h2 className="mb-3 text-2xl font-semibold leading-tight text-center ">
+            {`${currTeam} Roster`}
+          </h2>
+        </div>
+        <div className="min-h-screen grid justify-items-stretch w-full ">
           <table className="text-xs table-zebra active ">
             <thead className="rounded-t-lg dark:bg-gray-700 ">
               <tr className="text-right">

@@ -11,7 +11,6 @@ export default function TeamHome() {
   const [currTeam, setCurrTeam] = useOutletContext();
 
   const matchIdWithParams = (arr) => {
-    let name = 'd';
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].teamId === Number(teamId)) {
         return setCurrTeam(arr[i].simpleName);
