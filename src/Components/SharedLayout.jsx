@@ -17,7 +17,7 @@ export default function SharedLayout() {
     <>
       <Navbar />
 
-      <Hero currTeam={currTeam} setCurrTeam={setCurrTeam} />
+      {/* <Hero currTeam={currTeam} setCurrTeam={setCurrTeam} /> */}
 
       <Outlet context={[currTeam, setCurrTeam]} />
 

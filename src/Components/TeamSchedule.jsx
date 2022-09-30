@@ -2,9 +2,20 @@ import {Link, useOutletContext, useParams} from 'react-router-dom';
 import {useState} from 'react';
 import nbaSchedule from '../assets/nbaSchedule';
 import {useEffect} from 'react';
+import {nbaLogos} from '../assets/Logos/nbaLogos';
+import teamData from '../assets/teamData';
 
 export default function TeamSchedule({teamId}) {
   // const {teamId} = useParams;
+
+  const teamCity = () => {
+    for (let i = 0; i < teamData.length; i++) {
+      if (teamData[i].teamId === Number(teamId)) return teamData[i].location;
+    }
+  };
+
+  const city = teamCity(teamId);
+  console.log(city);
 
   const [teamSchedule, setTeamSchedule] = useState([]);
   const team = Number(teamId);
@@ -38,23 +49,29 @@ export default function TeamSchedule({teamId}) {
                 className="m-2 bg-primary flex flex-col text-center"
                 key={nextGames.gameId}
               >
-                <div className="card-body text-center place-items-center flex flex-row ">
-                  <div className="basis-1/3 flex-col mx-3">
-                    <h2 className="card-title flex justify-center">
+                <div className="basis-1/3 card-body text-center place-items-center flex flex-row ">
+                  <div className=" basis-1/3 flex-col mx-3 flex flex-grow">
+                    <img
+                      src={nbaLogos[`${nextGames.awayTeam.teamCity}`]}
+                      className="object-fit"
+                    />
+                    <h2 className="card-title flex justify-center my-2 flex flex-end">
                       {`${nextGames.awayTeam.teamName}`}
                     </h2>
                     <p>{`${nextGames.awayTeam.wins} - ${nextGames.awayTeam.losses}`}</p>
                   </div>
 
                   <p>vs</p>
-                  <div className="flex flex-col mx-3">
-                    <h2 className="card-title flex justify-center">
+
+                  <div className="basis-1/3 flex-col mx-3">
+                    <img src={nbaLogos[`${nextGames.homeTeam.teamCity}`]} />
+                    <h2 className="card-title flex justify-center my-2">
                       {`${nextGames.homeTeam.teamName}`}
                     </h2>
                     <p>{`${nextGames.homeTeam.wins} - ${nextGames.homeTeam.losses}`}</p>
                   </div>
                 </div>
-                <div className="my-2">
+                <div className=" basis-1/3 my-2">
                   <p>{`${nextGames.arenaName} - ${nextGames.arenaCity}, ${nextGames.arenaState}`}</p>
                   <p>{nextGames.gameTimeEst.toLocaleString()}</p>
                 </div>
