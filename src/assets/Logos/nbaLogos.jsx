@@ -21,12 +21,15 @@ export const nbaLogos = {
   'New York': 'src/assets/Logos/New-York-Knicks-Logo.png',
   'Oklahoma City': 'src/assets/Logos/Oklahoma-City-Thunder-Logo.png',
   Orlando: 'src/assets/Logos/Orlando-Magic-Logo.png',
-  Philadelphia: 'src/assets/Logos/Philadephia-76ers-Logo.png',
+  Philadelphia: '/src/assets/Logos/76ers.svg',
   Phoenix: 'src/assets/Logos/Phoenix-Suns-Logo.png',
   Portland: 'src/assets/Logos/Portland-Trail-Blazers-Logo.png',
   Sacramento: 'src/assets/Logos/Sacramento-Kings-Logo.png',
   'San Antonio': 'src/assets/Logos/San-Antonio-Spurs-Logo.png',
-  Toronto: 'src/assets/Logos/Toronto-Raptors-Logo.png',
+  Toronto:
+    'http://localhost:8011/proxy/logos/nba/1610612761/primary/L/logo.svg',
   Utah: 'src/assets/Logos/Utah-Jazz-Logo.png',
   Washington: 'src/assets/Logos/Washington-Wizards-Logo.png',
 };
+
+//Philadelphia: 'src/assets/Logos/Philadephia-76ers-Logo.png',

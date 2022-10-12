@@ -5,6 +5,8 @@ import {useEffect} from 'react';
 import {nbaLogos} from '../assets/Logos/nbaLogos';
 import teamData from '../assets/teamData';
 
+// https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json
+
 export default function TeamSchedule({teamId}) {
   // const {teamId} = useParams;
 
@@ -15,28 +17,56 @@ export default function TeamSchedule({teamId}) {
   };
 
   const city = teamCity(teamId);
-  console.log(city);
+  // console.log(city);
 
   const [teamSchedule, setTeamSchedule] = useState([]);
   const team = Number(teamId);
   const gameDates = nbaSchedule[0].leagueSchedule.gameDates;
   const [currTeam, setCurrTeam] = useOutletContext();
 
-  function getTeamGames(teamSelected) {
-    const cache = [];
-    for (let i = 0; i < gameDates.length; i++) {
-      console.log(gameDates[i]);
-      for (let j = 0; j < gameDates[i].games.length; j++) {
-        if (gameDates[i].games[j].awayTeam.teamId === teamSelected)
-          cache.push(gameDates[i].games[j]);
-        if (gameDates[i].games[j].homeTeam.teamId === teamSelected)
-          cache.push(gameDates[i].games[j]);
+  // function getTeamGames(teamSelected) {
+  //   const cache = [];
+  //   for (let i = 0; i < gameDates.length; i++) {
+  //     // console.log(gameDates[i]);
+  //     for (let j = 0; j < gameDates[i].games.length; j++) {
+  //       if (gameDates[i].games[j].awayTeam.teamId === teamSelected)
+  //         cache.push(gameDates[i].games[j]);
+  //       if (gameDates[i].games[j].homeTeam.teamId === teamSelected)
+  //         cache.push(gameDates[i].games[j]);
+  //     }
+  //   }
+  //   setTeamSchedule(cache);
+  // }
+
+  async function getTeamG(teamSelected) {
+    try {
+      const response = await fetch(
+        'http://localhost:8011/proxy/static/json/staticData/scheduleLeagueV2_1.json'
+      );
+
+      const jsonData = await response.json();
+      console.log('teamGames', jsonData.leagueSchedule.gameDates);
+      const teamGames = jsonData.leagueSchedule.gameDates;
+
+      const cache = [];
+      for (let i = 0; i < teamGames.length; i++) {
+        console.log(teamGames[i]);
+        for (let j = 0; j < teamGames[i].games.length; j++) {
+          if (teamGames[i].games[j].awayTeam.teamId === teamSelected)
+            cache.push(teamGames[i].games[j]);
+          if (teamGames[i].games[j].homeTeam.teamId === teamSelected)
+            cache.push(teamGames[i].games[j]);
+        }
       }
+      setTeamSchedule(cache);
+    } catch (err) {
+      console.error(err.message);
     }
-    setTeamSchedule(cache);
   }
+
   useEffect(() => {
-    getTeamGames(team);
+    // getTeamGames(team);
+    getTeamG(team);
   }, []);
 
   return (
@@ -54,7 +84,6 @@ export default function TeamSchedule({teamId}) {
                 <p>{date.toDateString()}</p>
                 <div className="basis-1/3 card-body text-center place-items-center flex flex-row ">
                   <div className=" basis-1/3 box-content  ">
-                    {/* <div className=" basis-1/3 flex-col mx-3 flex flex-grow"> */}
                     <img
                       src={nbaLogos[`${nextGames.awayTeam.teamCity}`]}
                       className="object-fit h-2/3"

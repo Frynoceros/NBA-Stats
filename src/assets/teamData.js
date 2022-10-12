@@ -194,6 +194,7 @@ const teamData = [
     teamName: 'Toronto Raptors',
     simpleName: 'Raptors',
     location: 'Toronto',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612761/primary/L/logo.svg',
   },
   {
     teamId: 1610612762,

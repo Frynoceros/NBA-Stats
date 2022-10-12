@@ -19,6 +19,7 @@ export default function Teams() {
   return (
     <>
       <Hero />
+
       <div className=" flex flex-row w-full card bg-base-300 rounded-box flex-wrap items-end border border-white p-2 ">
         {teamData.map(
           ({teamId, abbreviation, teamName, simpleName, location}) => {
@@ -28,13 +29,13 @@ export default function Teams() {
                 key={`tID ${teamId}`}
               >
                 <div className="flex flex-row place-items-center h-4/5 p-5 shrink-0 h-36 w-36">
-                  <figure className=" place-items-center ">
-                    <img
-                      className="p-5 max-h-40 max-w-36 "
-                      src={nbaLogos[location]}
-                      alt={`NBA Logo for ${teamName}`}
-                    />
-                  </figure>
+                  {/* <figure className=" place-items-center "> */}
+                  <img
+                    className="p-1 max-h-40 max-w-36 "
+                    src={nbaLogos[location]}
+                    alt={`NBA Logo for ${teamName}`}
+                  />
+                  {/* </figure> */}
                 </div>
 
                 <ul>

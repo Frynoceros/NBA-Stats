@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "proxy8010": "lcp --proxyUrl https://stats.nba.com/stats/",
+    "proxy8011": "lcp --port=8011 --proxyUrl https://cdn.nba.com/"
   },
   "dependencies": {
     "cors": "^2.8.5",
