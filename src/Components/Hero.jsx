@@ -1,10 +1,17 @@
-import {Link, useParams, useOutletContext} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import nbaSchedule from '../assets/nbaSchedule';
+import teamData from '../assets/teamData';
 
 export default function Hero() {
-  // const {teamId} = useParams();
   const [todaysGames, setTodaysGames] = useState([]);
+
+  function getLogo(td, tid) {
+    for (let i = 0; i < td.length; i++) {
+      if (td[i].teamId === Number(tid)) {
+        return td[i].logo;
+      }
+    }
+  }
 
   async function checkToday() {
     try {
@@ -12,28 +19,11 @@ export default function Hero() {
         'http://localhost:8011/proxy/static/json/liveData/scoreboard/todaysScoreboard_00.json'
       );
       const currGames = await response.json();
-      console.log('currGames', currGames.scoreboard.games);
       setTodaysGames(currGames.scoreboard.games);
     } catch (err) {
       console.error(err.message);
     }
   }
-
-  // let todaysGames = [];
-  // function getTodaysGames() {
-  //   const today = getFormattedDate(new Date());
-
-  //   nbaSchedule.filter((date, index) => {
-  //     if (
-  //       date.leagueSchedule.gameDates[0].gameDate === `${today} 12:00:00 AM`
-  //     ) {
-  //       return (todaysGames = date.leagueSchedule.gameDates[0].games);
-  //     }
-
-  //     console.log('No Games');
-  //     return 'No Games Today';
-  //   });
-  // }
 
   function getFormattedDate(date) {
     let year = date.getFullYear();
@@ -46,9 +36,6 @@ export default function Hero() {
   useEffect(() => {
     checkToday();
   }, []);
-  // getTodaysGames();
-
-  // console.log(todaysGames);
 
   return (
     <div className=" w-screen card bg-base-300 rounded-box border border-white ">
@@ -72,6 +59,10 @@ export default function Hero() {
                   {
                     <>
                       <div>
+                        <img
+                          alt={`small image of ${gameCard.awayTeam.teamTricode} logo`}
+                          src={getLogo(teamData, gameCard.awayTeam.teamId)}
+                        />
                         <Link
                           to={`${gameCard.awayTeam.teamId}`}
                           value={gameCard.awayTeam.teamId}
@@ -82,6 +73,10 @@ export default function Hero() {
                       </div>
                       <p className="text-base px-2">vs</p>
                       <div>
+                        <img
+                          alt={`small image of ${gameCard.homeTeam.teamTricode} logo`}
+                          src={getLogo(teamData, gameCard.homeTeam.teamId)}
+                        />
                         <Link
                           to={`${gameCard.homeTeam.teamId}`}
                           value={gameCard.homeTeam.teamId}

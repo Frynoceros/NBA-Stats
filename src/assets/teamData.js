@@ -5,20 +5,25 @@ const teamData = [
     teamName: 'Atlanta Hawks',
     simpleName: 'Hawks',
     location: 'Atlanta',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612737/primary/L/logo.svg',
   },
+
   {
     teamId: 1610612738,
     abbreviation: 'BOS',
     teamName: 'Boston Celtics',
     simpleName: 'Celtics',
     location: 'Boston',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612738/primary/L/logo.svg',
   },
+
   {
     teamId: 1610612751,
     abbreviation: 'BKN',
     teamName: 'Brooklyn Nets',
     simpleName: 'Nets',
     location: 'Brooklyn',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612751/primary/L/logo.svg',
   },
   {
     teamId: 1610612766,
@@ -26,6 +31,7 @@ const teamData = [
     teamName: 'Charlotte Hornets',
     simpleName: 'Hornets',
     location: 'Charlotte',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612766/primary/L/logo.svg',
   },
   {
     teamId: 1610612741,
@@ -33,6 +39,7 @@ const teamData = [
     teamName: 'Chicago Bulls',
     simpleName: 'Bulls',
     location: 'Chicago',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612741/primary/L/logo.svg',
   },
   {
     teamId: 1610612739,
@@ -40,6 +47,7 @@ const teamData = [
     teamName: 'Cleveland Cavaliers',
     simpleName: 'Cavaliers',
     location: 'Cleveland',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612739/primary/L/logo.svg',
   },
   {
     teamId: 1610612742,
@@ -47,6 +55,7 @@ const teamData = [
     teamName: 'Dallas Mavericks',
     simpleName: 'Mavericks',
     location: 'Dallas',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612742/primary/L/logo.svg',
   },
   {
     teamId: 1610612743,
@@ -54,6 +63,7 @@ const teamData = [
     teamName: 'Denver Nuggets',
     simpleName: 'Nuggets',
     location: 'Denver',
+    logo: ' http://localhost:8011/proxy/logos/nba/1610612743/primary/L/logo.svg',
   },
   {
     teamId: 1610612765,
@@ -61,6 +71,7 @@ const teamData = [
     teamName: 'Detroit Pistons',
     simpleName: 'Pistons',
     location: 'Detroit',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612765/primary/L/logo.svg',
   },
   {
     teamId: 1610612744,
@@ -68,6 +79,7 @@ const teamData = [
     teamName: 'Golden State Warriors',
     simpleName: 'Warriors',
     location: 'Golden State',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612744/primary/L/logo.svg ',
   },
   {
     teamId: 1610612745,
@@ -75,6 +87,7 @@ const teamData = [
     teamName: 'Houston Rockets',
     simpleName: 'Rockets',
     location: 'Houston',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612745/primary/L/logo.svg',
   },
   {
     teamId: 1610612754,
@@ -82,6 +95,7 @@ const teamData = [
     teamName: 'Indiana Pacers',
     simpleName: 'Pacers',
     location: 'Indiana',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612754/primary/L/logo.svg',
   },
   {
     teamId: 1610612746,
@@ -89,6 +103,7 @@ const teamData = [
     teamName: 'Los Angeles Clippers',
     simpleName: 'Clippers',
     location: 'Los Angeles',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612746/primary/L/logo.svg',
   },
   {
     teamId: 1610612747,
@@ -96,6 +111,7 @@ const teamData = [
     teamName: 'Los Angeles Lakers',
     simpleName: 'Lakers',
     location: 'Los Angeles',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612747/primary/L/logo.svg',
   },
   {
     teamId: 1610612763,
@@ -103,6 +119,7 @@ const teamData = [
     teamName: 'Memphis Grizzlies',
     simpleName: 'Grizzlies',
     location: 'Memphis',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612763/primary/L/logo.svg',
   },
   {
     teamId: 1610612748,
@@ -110,6 +127,7 @@ const teamData = [
     teamName: 'Miami Heat',
     simpleName: 'Heat',
     location: 'Miami',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612748/primary/L/logo.svg',
   },
   {
     teamId: 1610612749,
@@ -117,6 +135,7 @@ const teamData = [
     teamName: 'Milwaukee Bucks',
     simpleName: 'Bucks',
     location: 'Milwaukee',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612749/primary/L/logo.svg',
   },
   {
     teamId: 1610612750,
@@ -124,6 +143,7 @@ const teamData = [
     teamName: 'Minnesota Timberwolves',
     simpleName: 'Timberwolves',
     location: 'Minnesota',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612750/primary/L/logo.svg',
   },
   {
     teamId: 1610612740,
@@ -131,6 +151,7 @@ const teamData = [
     teamName: 'New Orleans Pelicans',
     simpleName: 'Pelicans',
     location: 'New Orleans',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612740/primary/L/logo.svg',
   },
   {
     teamId: 1610612752,
@@ -138,6 +159,7 @@ const teamData = [
     teamName: 'New York Knicks',
     simpleName: 'Knicks',
     location: 'New York',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612752/primary/L/logo.svg',
   },
   {
     teamId: 1610612760,
@@ -145,6 +167,7 @@ const teamData = [
     teamName: 'Oklahoma City Thunder',
     simpleName: 'Thunder',
     location: 'Oklahoma City',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612760/primary/L/logo.svg',
   },
   {
     teamId: 1610612753,
@@ -152,6 +175,7 @@ const teamData = [
     teamName: 'Orlando Magic',
     simpleName: 'Magic',
     location: 'Orlando',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612753/primary/L/logo.svg',
   },
   {
     teamId: 1610612755,
@@ -159,6 +183,7 @@ const teamData = [
     teamName: 'Philadelphia 76ers',
     simpleName: '76ers',
     location: 'Philadelphia',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612755/primary/L/logo.svg',
   },
   {
     teamId: 1610612756,
@@ -166,6 +191,7 @@ const teamData = [
     teamName: 'Phoenix Suns',
     simpleName: 'Suns',
     location: 'Phoenix',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612756/primary/L/logo.svg',
   },
   {
     teamId: 1610612757,
@@ -173,6 +199,7 @@ const teamData = [
     teamName: 'Portland Trail Blazers',
     simpleName: 'Trail Blazers',
     location: 'Portland',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612757/primary/L/logo.svg',
   },
   {
     teamId: 1610612758,
@@ -180,6 +207,7 @@ const teamData = [
     teamName: 'Sacramento Kings',
     simpleName: 'Kings',
     location: 'Sacramento',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612758/primary/L/logo.svg',
   },
   {
     teamId: 1610612759,
@@ -187,6 +215,7 @@ const teamData = [
     teamName: 'San Antonio Spurs',
     simpleName: 'Spurs',
     location: 'San Antonio',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612759/primary/L/logo.svg',
   },
   {
     teamId: 1610612761,
@@ -202,6 +231,7 @@ const teamData = [
     teamName: 'Utah Jazz',
     simpleName: 'Jazz',
     location: 'Utah',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612762/primary/L/logo.svg',
   },
   {
     teamId: 1610612764,
@@ -209,7 +239,22 @@ const teamData = [
     teamName: 'Washington Wizards',
     simpleName: 'Wizards',
     location: 'Washington',
+    logo: 'http://localhost:8011/proxy/logos/nba/1610612764/primary/L/logo.svg',
   },
 ];
+
+// const info = teamData.map((team) => {
+
+//    `${team.teamId}` = {
+//     teamId: team.teamId,
+//     abbreviation: team.abbreviation,
+//     teamName: team.teamName,
+//     simpleName: team.simpleName,
+//     location: team.location,
+//     logo: `http://localhost:8011/proxy/logos/nba/${team.teamId}/primary/L/logo.svg`,
+//   };
+// }
+// )
+// console.log('cat', info);
 
 export default teamData;
