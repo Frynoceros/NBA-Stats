@@ -1,6 +1,6 @@
 {
-  "name": "nba-api",
-  "private": true,
+  "name": "nba-stats",
+  "private": false,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
